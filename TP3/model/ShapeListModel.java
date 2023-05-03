@@ -57,5 +57,9 @@ public class ShapeListModel {
     }
 
 
+    public void clear() {
+        this.ListeShape.clear();
+        this.TestPCS.firePropertyChange("clearShape",null, this.ListeShape);
+    }
 }
 
