@@ -28,34 +28,29 @@ public class MyShapeManager extends JFrame implements ActionListener,IDrawView, 
     private DrawController controller;
     private  Dessin dessin;
 
+    private DefaultListModel<Shape> listModel;
+    private JList<Shape> list;
+    private JButton deleteButton;
+
     public MyShapeManager(String title,DrawController controller,ShapeListModel shapeListModel) {
-        super(title);
-        this.shapeListModel = shapeListModel;
+        super("My Shape Manager");
         this.controller = controller;
-        this.dessin = new Dessin(this.controller);
         this.controller.RegisterView(this);
 
-        setLocation(500, 500);
-        setSize(500, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        this.listModel = new DefaultListModel<>();
+        this.list = new JList<>(listModel);
+        this.list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane listScrollPane = new JScrollPane(list);
+        getContentPane().add(listScrollPane, BorderLayout.CENTER);
+        this.deleteButton = new JButton("Delete");
+        this.deleteButton.addActionListener(this);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(deleteButton);
+        getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
+        setSize(500,500);
 
-        // Création de la liste de formes
-        JList<Shape> shapeList = new JList<>();
-        //shapeList.setModel(shapeListModel);
-        shapeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JScrollPane scrollPane = new JScrollPane(shapeList);
-
-        // Création du bouton remove
-        JButton removeButton = new JButton("Remove");
-        removeButton.addActionListener(this);
-
-        // Ajout des composants à la fenêtre
-        JPanel contentPane = new JPanel(new BorderLayout());
-        contentPane.add(scrollPane, BorderLayout.CENTER);
-        contentPane.add(removeButton, BorderLayout.SOUTH);
-        setContentPane(contentPane);
     }
 
     // Met à jour la liste de formes affichée
@@ -73,31 +68,36 @@ public class MyShapeManager extends JFrame implements ActionListener,IDrawView, 
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent e) {
-
-        System.out.println("PropertyChangeEvent mais dans le shapeManager -> "+e);
-        //System.out.println("Affichage de l'event-> "+e.getPropertyName());
-        if(e.getPropertyName().equals("AddShapes")){
-            System.out.println("PropertyChangeEvent rentré dans le if ");
-            Object data = e.getNewValue();
+    public void propertyChange(PropertyChangeEvent evt) {
+        //System.out.println("propertyChange dans le shapeManager");
+        if(evt.getPropertyName().equals("AddShapes")){
+            Object data = evt.getNewValue();
             if (data instanceof List){
-                System.out.println("deuxième if ok ");
                 List<Shape> shapes = (List<Shape>) data;
-                this.shapeListModel.clear();
+                this.listModel.clear();
                 for (Shape shape : shapes) {
-                    this.shapeListModel.AddShape(shape);
+                    this.listModel.addElement(shape);
                 }
             }
+        }else if (evt.getPropertyName().equals("removeShape")) {
+            //System.out.println("on remove 4");
+            this.listModel.clear();
+            Object data = evt.getNewValue();
+            List<Shape> shapes = (List<Shape>) data;
+            for (Shape shape : shapes) {
+                this.listModel.addElement(shape);
+            }
+        }else if (evt.getPropertyName().equals("clearShape")) {
+            this.listModel.clear();
+        }else if (evt.getPropertyName().equals("cacherSM")){
+            System.out.println("cacher SM");
+            close();
+        }else if (evt.getPropertyName().equals("afficherSM")){
+            System.out.println("afficher SM");
+            display();
         }
-        else{
-            System.out.println("test+"+this.shapeListModel);
-            System.out.println("Pas d'actions reconnues (mais bien detectée) "+e);
-
-        }
-
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
 
     }
