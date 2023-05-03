@@ -118,6 +118,7 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
 
             rectangle test=new rectangle(CurrentColor,XSouris,YSouris);
             test.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(test);
            // Shapes.add(test);
            // repaint();
             System.out.println("Fin d'ajout normalement -> "+Shapes.size());
@@ -129,6 +130,7 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
 
             carre test=new carre(CurrentColor,XSouris,YSouris);
             test.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(test);
             //Shapes.add(test);
             //repaint();
             //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
@@ -141,6 +143,7 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
 
             cercle test=new cercle(CurrentColor,XSouris,YSouris,XSouris-deplacementX);
             test.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(test);
             //Shapes.add(test);
             //repaint();
             //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
@@ -155,7 +158,7 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
             test.setBoundingBox(deplacementX,deplacementY);
             this.controller.AddShapeController(test);
             //Shapes.add(test);
-            repaint();
+            //repaint();
             //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
 
 
