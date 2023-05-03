@@ -81,7 +81,16 @@ public class MyShapeManager extends JFrame implements ActionListener,IDrawView, 
             }
         }
         else if (evt.getPropertyName().equals("RemoveShapes")) {
-            //System.out.println("on remove 4");
+
+            this.listModel.clear();
+            Object data = evt.getNewValue();
+            List<Shape> shapes = (List<Shape>) data;
+            for (Shape shape : shapes) {
+                this.listModel.addElement(shape);
+            }
+        }
+        else if (evt.getPropertyName().equals("RemoveAllShapes")) {
+
             this.listModel.clear();
             Object data = evt.getNewValue();
             List<Shape> shapes = (List<Shape>) data;

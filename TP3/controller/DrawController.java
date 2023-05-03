@@ -31,6 +31,17 @@ public class DrawController{
         DrawController_SLM.RemoveShape(S);
 
     }
+    public void RemoveAllShapeController(){
+        DrawController_SLM.RemovesAllShapes();
+
+    }
+    public void DisplayViewShapeManager(){
+        DrawController_SLM.DisplayShapeManager();
+
+    }
+    public void CloseViewShapeManager(){
+
+    }
 
     public void DisplayView(){
         for(IDrawView v :DrawController_View){

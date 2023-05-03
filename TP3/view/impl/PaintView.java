@@ -46,6 +46,25 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
                 dessin.repaint();
             }
         }
+        else if(evt.getPropertyName().equals("RemoveAllShapes")){
+
+            Object data = evt.getNewValue();
+            ArrayList<org.isen.volumeModel.TP3.Data.Shape> shapes = (ArrayList<org.isen.volumeModel.TP3.Data.Shape>) data;
+            if(data instanceof List){
+                dessin.setShape(shapes);
+                dessin.repaint();
+            }
+        }
+        else if(evt.getPropertyName().equals("AddShapes")){
+
+            Object data = evt.getNewValue();
+            ArrayList<org.isen.volumeModel.TP3.Data.Shape> shapes = (ArrayList<org.isen.volumeModel.TP3.Data.Shape>) data;
+            if(data instanceof List){
+                dessin.setShape(shapes);
+                dessin.repaint();
+            }
+        }
+
 
     }
     @Override
@@ -129,6 +148,23 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
             dessin.ChangeColor(Color.PINK);
             dessin.ReturnColor();
         }
+        else if(cmd.equals("Nouveau")){
+            System.out.println("Bouton presse = +"+cmd);
+
+
+            controller.RemoveAllShapeController();
+        }
+        else if(cmd.equals("Auteurs")){
+            System.out.println("Bouton presse = +"+cmd);
+            JOptionPane.showMessageDialog(null, "Pourquoi les plongeurs plongent-ils toujours en arrière et jamais en avant ?\nParce que sinon ils tombent dans le bateau !", "Blague", JOptionPane.PLAIN_MESSAGE);
+
+
+        }
+        else if(cmd.equals("ShapeManager")){
+
+            //controller.DisplayViewShapeManager();
+
+        }
         else{
             System.err.println(cmd);
         }
@@ -151,6 +187,7 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
         JMenu FichierSauvegarde = new JMenu("Fichier");
 
         JMenuItem Nouveau = new JMenuItem("Nouveau");
+        Nouveau.addActionListener(this);
         JMenuItem OuvrirMenu = new JMenuItem("Ouvrir");
         JMenuItem EnregistrerMenu = new JMenuItem("Enregistrer");
         JMenuItem QuitterMenu = new JMenuItem("Quitter");
@@ -165,8 +202,17 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
 
 
         JMenu APropos = new JMenu("APropos");
+        JMenuItem Auteurs = new JMenuItem("Auteurs");
+        Auteurs.addActionListener(this);
+        APropos.add(Auteurs);
         m.add(FichierSauvegarde);
         m.add(APropos);
+        JMenu Vues = new JMenu("Vues");
+        JCheckBox ShapeManager = new JCheckBox("ShapeManager");
+        ShapeManager.addActionListener(this);
+        Vues.add(ShapeManager);
+        m.add(Vues);
+
 
         setJMenuBar(m);
         contentPane.add(this.dessin,BorderLayout.CENTER);

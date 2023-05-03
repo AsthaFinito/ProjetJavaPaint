@@ -179,39 +179,78 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseDragged(MouseEvent e) {
+        /*
+        System.out.println("Detection lacher de souris");
         int SourisX_Lache=e.getX();
         int SourisY_Lache=e.getY();
-        int deplacementX=SourisX_Lache-XSouris;
-        int deplacementY=SourisY_Lache-YSouris;
+        int deplacementX;
+        int deplacementY;
 
+        if(SourisY_Lache>YSouris){
+            deplacementY=SourisY_Lache-YSouris;
+        }
+        else{
+            deplacementY=YSouris-SourisY_Lache;
 
-        if(this.Current_ShapeName.equals("Rectangle")){
+        }
+
+        if(SourisX_Lache>XSouris){
+            deplacementX=SourisX_Lache-XSouris;
+        }
+        else{
+            deplacementX=XSouris-SourisX_Lache;
+        }
+        // System.out.println("Valeur du deplacement : En X et En Y "+deplacementX+" "+deplacementY);
+        if(Current_ShapeName.equals("Rectangle")){
+
             rectangle test=new rectangle(CurrentColor,XSouris,YSouris);
             test.setBoundingBox(deplacementX,deplacementY);
-            Shapes.add(test);
-            repaint();
+            this.controller.AddShapeController(test);
+            // Shapes.add(test);
+            // repaint();
             System.out.println("Fin d'ajout normalement -> "+Shapes.size());
-        } else if (this.Current_ShapeName.equals("Elipse")) {
-            ellipse test=new ellipse(CurrentColor,XSouris,YSouris);
-            test.setBoundingBox(deplacementX,deplacementY);
-            Shapes.add(test);
-            repaint();
-        }
-        else if (this.Current_ShapeName.equals("Carre")) {
+
+        } else if (Current_ShapeName.equals("Carre"))
+        {
+            System.out.println("Dans le carré?");
+            //  Dot coo= new Dot(XSouris,YSouris);
+
             carre test=new carre(CurrentColor,XSouris,YSouris);
             test.setBoundingBox(deplacementX,deplacementY);
-            Shapes.add(test);
-            repaint();
-        }
-        else if (this.Current_ShapeName.equals("Cercle")) {
+            this.controller.AddShapeController(test);
+            //Shapes.add(test);
+            //repaint();
+            //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
+
+
+        }else if (Current_ShapeName.equals("Cercle"))
+        {
+            System.out.println("Dans le cercle?");
+            //  Dot coo= new Dot(XSouris,YSouris);
+
             cercle test=new cercle(CurrentColor,XSouris,YSouris,XSouris-deplacementX);
             test.setBoundingBox(deplacementX,deplacementY);
-            Shapes.add(test);
-            repaint();
+            this.controller.AddShapeController(test);
+            //Shapes.add(test);
+            //repaint();
+            //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
+
+
+        }else if (Current_ShapeName.equals("Elipse"))
+        {
+            System.out.println("Dans l'elipse?");
+            //  Dot coo= new Dot(XSouris,YSouris);
+
+            ellipse test=new ellipse(CurrentColor, XSouris,YSouris);
+            test.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(test);
+            //Shapes.add(test);
+            //repaint();
+            //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
+
+
         }
-
-
-        repaint();
+        */
     }
 
     @Override

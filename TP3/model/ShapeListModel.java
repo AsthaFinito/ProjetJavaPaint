@@ -52,6 +52,11 @@ public class ShapeListModel {
         TestPCS.firePropertyChange("RemoveShapes",null,ListeShape);
 
     }
+
+    public void RemovesAllShapes(){
+        this.ListeShape.clear();
+        TestPCS.firePropertyChange("RemoveAllShapes",null,ListeShape);
+    }
     public List<Shape> getShapes() {
         return ListeShape;
     }
@@ -60,6 +65,10 @@ public class ShapeListModel {
     public void clear() {
         this.ListeShape.clear();
         this.TestPCS.firePropertyChange("clearShape",null, this.ListeShape);
+    }
+
+    public void DisplayShapeManager() {
+        this.TestPCS.firePropertyChange("DisplayShapeManager",null, this.ListeShape);
     }
 }
 
