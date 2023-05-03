@@ -33,7 +33,7 @@ public class MyShapeManager extends JFrame implements ActionListener,IDrawView, 
     private JButton deleteButton;
 
     public MyShapeManager(String title,DrawController controller,ShapeListModel shapeListModel) {
-        super("My Shape Manager");
+        super(title);
         this.controller = controller;
         this.controller.RegisterView(this);
 
@@ -79,7 +79,8 @@ public class MyShapeManager extends JFrame implements ActionListener,IDrawView, 
                     this.listModel.addElement(shape);
                 }
             }
-        }else if (evt.getPropertyName().equals("removeShape")) {
+        }
+        else if (evt.getPropertyName().equals("RemoveShapes")) {
             //System.out.println("on remove 4");
             this.listModel.clear();
             Object data = evt.getNewValue();
@@ -87,18 +88,21 @@ public class MyShapeManager extends JFrame implements ActionListener,IDrawView, 
             for (Shape shape : shapes) {
                 this.listModel.addElement(shape);
             }
-        }else if (evt.getPropertyName().equals("clearShape")) {
-            this.listModel.clear();
-        }else if (evt.getPropertyName().equals("cacherSM")){
-            System.out.println("cacher SM");
-            close();
-        }else if (evt.getPropertyName().equals("afficherSM")){
-            System.out.println("afficher SM");
-            display();
         }
     }
 
     public void actionPerformed(ActionEvent e) {
+
+        if(e.getSource()==deleteButton){
+            System.out.println("Supression en cours");
+            if(list == null){
+                System.out.println("Impossible");
+            }
+            else{
+                int index=list.getSelectedIndex();
+                controller.RemoveShapeController(listModel.get(index));
+            }
+        }
 
     }
 }

@@ -47,8 +47,8 @@ public class ShapeListModel {
 
     public void RemoveShape(Shape S){
 
-        int index=this.ListeShape.indexOf(S);
-        this.ListeShape.remove(index);
+        //int index=this.ListeShape.indexOf(S);
+        this.ListeShape.remove(S);
         TestPCS.firePropertyChange("RemoveShapes",null,ListeShape);
 
     }

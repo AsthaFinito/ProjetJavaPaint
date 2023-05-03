@@ -37,6 +37,15 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
                 dessin.repaint();
             }
         }
+        else if(evt.getPropertyName().equals("RemoveShapes")){
+
+            Object data = evt.getNewValue();
+            ArrayList<org.isen.volumeModel.TP3.Data.Shape> shapes = (ArrayList<org.isen.volumeModel.TP3.Data.Shape>) data;
+            if(data instanceof List){
+                dessin.setShape(shapes);
+                dessin.repaint();
+            }
+        }
 
     }
     @Override
