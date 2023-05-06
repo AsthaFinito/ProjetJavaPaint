@@ -11,10 +11,12 @@ public class TestPaintView {
         DrawController controller = new DrawController(ListeFigure);
 
         //System.out.println("Apres le v.display");
-        MyShapeManager test= new MyShapeManager("My Shape Manager",controller,ListeFigure);
-        test.display();
+
         PaintView v= new PaintView("Display Draw",controller);
+        MyShapeManager test= new MyShapeManager("My Shape Manager",controller,ListeFigure);
+        //test.display();
         v.display();
+
 
 
     }

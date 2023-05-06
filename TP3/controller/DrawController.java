@@ -50,8 +50,14 @@ public class DrawController{
     }
 
     public void CloseView(){
-        for(IDrawView v :DrawController_View){
-            v.close();
+        int i = 0;
+        System.out.println("Dans le close view");
+        for(IDrawView v : DrawController_View){
+            if(i == 1){
+                v.close(); // Ferme la deuxième vue
+                break; // Sort de la boucle après avoir fermé la deuxième vue
+            }
+            i++; // Incrémente le compteur à chaque tour de boucle
         }
     }
 

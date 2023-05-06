@@ -20,6 +20,7 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
 
     private Dessin dessin;
     private DrawController controller;
+    int test_shapeManager;
 
     @Override
     public void close() {
@@ -63,6 +64,10 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
                 dessin.setShape(shapes);
                 dessin.repaint();
             }
+        }
+        else if(evt.getPropertyName().equals("DisplayShapeManager")){
+
+            //test.display();
         }
 
 
@@ -162,7 +167,16 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
         }
         else if(cmd.equals("ShapeManager")){
 
-            //controller.DisplayViewShapeManager();
+            System.out.println("Valeur du i dans le shapeManager :"+test_shapeManager);
+            if(test_shapeManager%2==0){
+                controller.DisplayView();
+                test_shapeManager=test_shapeManager+1;
+            }
+            else{
+                controller.CloseView();
+                test_shapeManager=test_shapeManager+1;
+            }
+
 
         }
         else{
@@ -178,6 +192,7 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
         this.controller=controller;
         this.dessin = new Dessin(this.controller);
         this.controller.RegisterView(this);
+        test_shapeManager=0;
         setLocation(0,0);
         setSize(1280,760);
 
@@ -209,6 +224,7 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
         m.add(APropos);
         JMenu Vues = new JMenu("Vues");
         JCheckBox ShapeManager = new JCheckBox("ShapeManager");
+
         ShapeManager.addActionListener(this);
         Vues.add(ShapeManager);
         m.add(Vues);
