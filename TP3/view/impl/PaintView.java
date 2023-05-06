@@ -21,6 +21,7 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
     private Dessin dessin;
     private DrawController controller;
     int test_shapeManager;
+    int test_SVGEditor;
 
     @Override
     public void close() {
@@ -179,6 +180,21 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
 
 
         }
+        else if(cmd.equals("SvgEditor")){
+
+            System.out.println("Apparition du SvgEditor");
+            if(test_SVGEditor%2==0){
+                controller.DisplayViewSvg();
+                test_SVGEditor=test_SVGEditor+1;
+            }
+            else{
+                controller.CloseViewSvg();
+                test_SVGEditor=test_SVGEditor+1;
+            }
+
+
+
+        }
         else{
             System.err.println(cmd);
         }
@@ -224,9 +240,12 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
         m.add(APropos);
         JMenu Vues = new JMenu("Vues");
         JCheckBox ShapeManager = new JCheckBox("ShapeManager");
+        JCheckBox SvgEditor = new JCheckBox("SvgEditor");
 
         ShapeManager.addActionListener(this);
+        SvgEditor.addActionListener(this);
         Vues.add(ShapeManager);
+        Vues.add(SvgEditor);
         m.add(Vues);
 
 
