@@ -11,6 +11,7 @@ public class TestPaintView {
         ShapeListModel ListeFigure = new ShapeListModel();
         DrawController controller = new DrawController(ListeFigure);
 
+
         //System.out.println("Apres le v.display");
 
         PaintView v= new PaintView("Display Draw",controller);

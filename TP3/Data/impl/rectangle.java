@@ -14,6 +14,8 @@ public class rectangle extends Shape {
     private int Y;
     private int longeur;
     private int largeur;
+    private Color stroke_color;
+    private int stroke_width;
 
     public rectangle(Color couleur, Dot point) {
         super(couleur, point);
@@ -30,6 +32,20 @@ public class rectangle extends Shape {
         this.X=px;
         this.Y=py;
         this.couleur=couleur;
+        this.stroke_color=couleur;
+
+
+    }
+    public rectangle(Color couleur,int px,int py,Color StrokeColor) {
+
+
+        super(couleur,new Dot(px,py));
+        this.longeur=0;
+        this.largeur=0;
+        this.X=px;
+        this.Y=py;
+        this.couleur=couleur;
+        this.stroke_color=StrokeColor;
 
 
     }
@@ -44,6 +60,8 @@ public class rectangle extends Shape {
 
         g.setColor(this.couleur);
         g.fillRect(this.X,this.Y,this.longeur,this.largeur);
+        g.setColor(this.stroke_color);
+        g.drawRect(this.X,this.Y,this.longeur,this.largeur);
 
     }
 }

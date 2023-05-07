@@ -11,6 +11,7 @@ public abstract class Shape {
     private Dot point;
 
 
+
     public Shape(Color couleur,Dot point) {
         this.couleur = couleur;
         this.point=point;
@@ -20,6 +21,10 @@ public abstract class Shape {
     public Shape(Dot point) {
         this.point=point;
         this.couleur=Color.BLACK;
+    }
+    public Shape(String texte,Color CouleurTexte,int X,int Y) {
+
+        this.couleur=CouleurTexte;
     }
 
 
