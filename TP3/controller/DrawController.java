@@ -2,6 +2,7 @@ package org.isen.volumeModel.TP3.controller;
 
 import org.isen.volumeModel.TP3.Data.Shape;
 import org.isen.volumeModel.TP3.Data.impl.carre;
+import org.isen.volumeModel.TP3.Data.impl.cercle;
 import org.isen.volumeModel.TP3.view.IDrawView;
 import org.isen.volumeModel.TP3.model.ShapeListModel;
 
@@ -84,5 +85,9 @@ public class DrawController{
             }
             i++; // Incrémente le compteur à chaque tour de boucle
         }
+    }
+
+    public void AddShapeControllerSVG(Shape test) {
+        DrawController_SLM.AddShapeSVG(test);
     }
 }

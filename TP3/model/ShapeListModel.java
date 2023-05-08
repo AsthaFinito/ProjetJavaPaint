@@ -70,5 +70,10 @@ public class ShapeListModel {
     public void DisplayShapeManager() {
         this.TestPCS.firePropertyChange("DisplayShapeManager",null, this.ListeShape);
     }
+
+    public void AddShapeSVG(Shape test) {
+        this.ListeShape.add(test);
+        TestPCS.firePropertyChange("AddShapesSVG",null,ListeShape);
+    }
 }
 

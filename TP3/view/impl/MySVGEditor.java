@@ -28,6 +28,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
     private Dessin dessin;
     private JTextField zoneCode;
     private JButton BoutonRefresh;
+    private JButton BoutonImport;
     public MySVGEditor(String title, DrawController controller){
         super(title);
         this.controller=controller;
@@ -76,9 +77,10 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
         this.BoutonRefresh.addActionListener(this);
         this.BoutonRefresh.setBackground(Color.red);
         PanelRefresh.add(this.BoutonRefresh);
-        JButton BoutonImport=new JButton("Import");
-        BoutonImport.setBackground(Color.green);
-        PanelImport.add(BoutonImport);
+        this.BoutonImport=new JButton("Import");
+        this.BoutonImport.addActionListener(this);
+        this.BoutonImport.setBackground(Color.green);
+        PanelImport.add(this.BoutonImport);
         panSouth.add(this.BoutonRefresh);
         panSouth.setLayout(new FlowLayout());
         panSouth.add(PanelImport);
@@ -156,7 +158,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
 
                         rectangle test=new rectangle(CurrentColor2,x,y,CurrentColorStroke2);
                         test.setBoundingBox(width,height);
-                        this.controller.AddShapeController(test);
+                        this.controller.AddShapeControllerSVG(test);
 
                     }
 
@@ -184,7 +186,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
 
                         cercle test=new cercle(CurrentColor2,cx,cy,r,CurrentColorStroke2);
                         test.setBoundingBox(r,r);
-                        this.controller.AddShapeController(test);
+                        this.controller.AddShapeControllerSVG(test);
                     }
                     else if (svgChild.getNodeType() == Node.ELEMENT_NODE && svgChild.getNodeName().equals("text")) {
                         // code pour le texte
@@ -204,7 +206,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
                         // Do something with the text data
                         texte test=new texte(textValueString,CurrentColor2,x,y);
 
-                        this.controller.AddShapeController(test);
+                        this.controller.AddShapeControllerSVG(test);
 
                     }
                     else if (svgChild.getNodeType() == Node.ELEMENT_NODE && svgChild.getNodeName().equals("isen_magic")) {
@@ -240,7 +242,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
                         int CurrentTailleStroke = (int) Float.parseFloat(polygonElement.getAttribute("stroke-width"));
 
                         polygon test=new polygon(CurrentColor2,CurrentColorStroke2,CurrentTailleStroke,points);
-                        this.controller.AddShapeController(test);
+                        this.controller.AddShapeControllerSVG(test);
                         // System.out.println("Fin de chargement");
 
                     }
@@ -251,6 +253,9 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
             } catch (ParserConfigurationException | SAXException | IOException e) {
                 e.printStackTrace();
             }
+        }
+        else if(evt.getSource()==BoutonImport){
+            System.out.println("Affichage dans le paint ");
         }
 
     }
@@ -271,7 +276,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("PropertyChangeEvent -> "+evt);
-        if(evt.getPropertyName().equals("AddShapes")){
+        if(evt.getPropertyName().equals("AddShapesSVG")){
             Object data = evt.getNewValue();
             ArrayList<org.isen.volumeModel.TP3.Data.Shape> shapes = (ArrayList<org.isen.volumeModel.TP3.Data.Shape>) data;
             if(data instanceof List){
