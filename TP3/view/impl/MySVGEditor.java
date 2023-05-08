@@ -139,14 +139,22 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
                         int y = (int) Float.parseFloat(rect.getAttribute("y"));
                         int width = (int) Float.parseFloat(rect.getAttribute("width"));
                         int height = (int) Float.parseFloat(rect.getAttribute("height"));
-                        Color CurrentColor= Color.decode(rect.getAttribute("fill"));
-                        Color CurrentColorStroke= Color.decode(rect.getAttribute("stroke"));
+                        //Color CurrentColor= Color.decode(rect.getAttribute("fill"));
+                        String CurrentColor= rect.getAttribute("fill");
+                        String testColor=ColorCheck(CurrentColor);
+                        System.out.println(testColor);
+                        Color CurrentColor2=Color.decode(testColor);
+                        //Color CurrentColorStroke= Color.decode(rect.getAttribute("stroke"));
+                        String CurrentColorStroke= rect.getAttribute("fill");
+                        testColor=ColorCheck(CurrentColor);
+                        System.out.println(testColor);
+                        Color CurrentColorStroke2=Color.decode(testColor);
                         int CurrentTailleStroke = (int) Float.parseFloat(rect.getAttribute("stroke-width"));
 
                         // Do something with the rectangle data
                         System.out.println("Detection d'un rectangle -> Rectangle: (" + x + "," + y + ") " + width + "x" + height);
 
-                        rectangle test=new rectangle(CurrentColor,x,y,CurrentColorStroke);
+                        rectangle test=new rectangle(CurrentColor2,x,y,CurrentColorStroke2);
                         test.setBoundingBox(width,height);
                         this.controller.AddShapeController(test);
 
@@ -160,14 +168,21 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
                         int cx = (int) Float.parseFloat(circle.getAttribute("cx"));
                         int cy = (int) Float.parseFloat(circle.getAttribute("cy"));
                         int r = (int) Float.parseFloat(circle.getAttribute("r"));
-                        Color CurrentColor= Color.decode(circle.getAttribute("fill"));
-                        Color CurrentColorStroke= Color.decode(circle.getAttribute("stroke"));
+                        String CurrentColor= circle.getAttribute("fill");
+                        String testColor=ColorCheck(CurrentColor);
+                        System.out.println(testColor);
+                        Color CurrentColor2=Color.decode(testColor);
+                        //---------------------------------------------------------
+                        String CurrentColorStroke= circle.getAttribute("stroke");
+                        testColor=ColorCheck(CurrentColorStroke);
+                        System.out.println(testColor);
+                        Color CurrentColorStroke2=Color.decode(testColor);
                         int CurrentTailleStroke = (int) Float.parseFloat(circle.getAttribute("stroke-width"));
 
                         // Do something with the circle data
                         System.out.println("Detection d'un cercle -> Circle: (" + cx + "," + cy + ") r=" + r);
 
-                        cercle test=new cercle(CurrentColor,cx,cy,r,CurrentColorStroke);
+                        cercle test=new cercle(CurrentColor2,cx,cy,r,CurrentColorStroke2);
                         test.setBoundingBox(r,r);
                         this.controller.AddShapeController(test);
                     }
@@ -180,11 +195,14 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
                         int y = (int) Float.parseFloat(text.getAttribute("y"));
                         String textValueString = text.getTextContent().trim();
                         System.out.println("Recup du string : -> "+textValueString);
-                        Color CurrentColor= Color.decode(text.getAttribute("stroke"));
+                        String CurrentColor= text.getAttribute("stroke");
+                        String testColor=ColorCheck(CurrentColor);
+                        System.out.println(testColor);
+                        Color CurrentColor2=Color.decode(testColor);
 
 
                         // Do something with the text data
-                        texte test=new texte(textValueString,CurrentColor,x,y);
+                        texte test=new texte(textValueString,CurrentColor2,x,y);
 
                         this.controller.AddShapeController(test);
 
@@ -208,13 +226,20 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
                         String points = polygonElement.getAttribute("points");
 
 
-                        Color CurrentColor= Color.decode(polygonElement.getAttribute("fill"));
-                        Color CurrentColorStroke= Color.decode(polygonElement.getAttribute("stroke"));
+                        String CurrentColor= polygonElement.getAttribute("fill");
+                        String testColor=ColorCheck(CurrentColor);
+                        System.out.println(testColor);
+                        Color CurrentColor2=Color.decode(testColor);
+                        //---------------------------------------------------------
+                        String CurrentColorStroke= polygonElement.getAttribute("stroke");
+                        testColor=ColorCheck(CurrentColorStroke);
+                        System.out.println(testColor);
+                        Color CurrentColorStroke2=Color.decode(testColor);
 
 
                         int CurrentTailleStroke = (int) Float.parseFloat(polygonElement.getAttribute("stroke-width"));
 
-                        polygon test=new polygon(CurrentColor,CurrentColorStroke,CurrentTailleStroke,points);
+                        polygon test=new polygon(CurrentColor2,CurrentColorStroke2,CurrentTailleStroke,points);
                         this.controller.AddShapeController(test);
                         // System.out.println("Fin de chargement");
 
@@ -253,6 +278,86 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
                 dessin.setShape(shapes);
                 dessin.repaint();
             }
+        }
+
+    }
+
+    public String ColorCheck(String color){
+        String temp;
+        if(color.equals("marooon")){
+            temp="#800000";
+            return temp;
+        }
+        else if(color.equals("red")){
+            temp="#ff0000";
+            return temp;
+        }
+        else if(color.equals("orange")){
+            temp="#ffA500";
+            return temp;
+        }
+        else if(color.equals("yellow")){
+            temp="#ffff00";
+            return temp;
+        }
+        else if(color.equals("olive")){
+            temp="#808000";
+            return temp;
+        }
+        else if(color.equals("purple")){
+            temp="#800080";
+            return temp;
+        }
+        else if(color.equals("fuchsia")){
+            temp="#ff00ff";
+            return temp;
+        }else if(color.equals("white")){
+            temp="#ffffff";
+            return temp;
+        }
+        else if(color.equals("lime")){
+            temp="#00ff00";
+            return temp;
+        }
+        else if(color.equals("green")){
+            temp="#008000";
+            return temp;
+        }
+        else if(color.equals("navy")){
+            temp="#000080";
+            return temp;
+        }
+        else if(color.equals("blue")){
+            temp="#0000ff";
+            return temp;
+        }
+        else if(color.equals("aqua")){
+            temp="#00ffff";
+            return temp;
+        }
+        else if(color.equals("teal")){
+            temp="#008080";
+            return temp;
+        }
+        else if(color.equals("black")){
+            temp="#000000";
+            return temp;
+        }
+        else if(color.equals("silver")){
+            temp="#c0c0c0";
+            return temp;
+        }
+        else if(color.equals("gray")){
+            temp="#808080";
+            return temp;
+        }
+        else if(color.equals("none")){
+            temp="#ffffff";
+            return temp;
+        }
+        else{
+            System.out.println("Erreur else-if des couleurs ou couleur deja decode");
+            return color;
         }
 
     }
