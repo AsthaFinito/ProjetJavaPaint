@@ -165,8 +165,8 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
                         System.out.println(testColor);
                         Color CurrentColor2=Color.decode(testColor);
                         //Color CurrentColorStroke= Color.decode(rect.getAttribute("stroke"));
-                        String CurrentColorStroke= rect.getAttribute("fill");
-                        testColor=ColorCheck(CurrentColor);
+                        String CurrentColorStroke= rect.getAttribute("stroke");
+                        testColor=ColorCheck(CurrentColorStroke);
                         System.out.println(testColor);
                         Color CurrentColorStroke2=Color.decode(testColor);
                         int CurrentTailleStroke = (int) Float.parseFloat(rect.getAttribute("stroke-width"));
@@ -174,7 +174,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
                         // Do something with the rectangle data
                         System.out.println("Detection d'un rectangle -> Rectangle: (" + x + "," + y + ") " + width + "x" + height);
 
-                        rectangle test=new rectangle(CurrentColor2,x,y,CurrentColorStroke2);
+                        rectangle test=new rectangle(CurrentColor2,x,y,CurrentColorStroke2,CurrentTailleStroke);
                         test.setBoundingBox(width,height);
                         this.controller.AddShapeControllerSVG(test);
                         StockageShape.add(test);
@@ -203,7 +203,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
                         // Do something with the circle data
                         System.out.println("Detection d'un cercle -> Circle: (" + cx + "," + cy + ") r=" + r);
 
-                        cercle test=new cercle(CurrentColor2,cx,cy,r,CurrentColorStroke2);
+                        cercle test=new cercle(CurrentColor2,cx,cy,r,CurrentColorStroke2,CurrentTailleStroke);
                         test.setBoundingBox(r,r);
                         this.controller.AddShapeControllerSVG(test);
                         StockageShape.add(test);
@@ -238,7 +238,8 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
                         int y = (int) Float.parseFloat(text.getAttribute("y"));
                         image test=new image(x,y);
 
-                        this.controller.AddShapeController(test);
+                        this.controller.AddShapeControllerSVG(test);
+                        StockageShape.add(test);
                         // System.out.println("Fin de chargement");
 
                     }
@@ -284,6 +285,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
                     this.controller.AddShapeController(shape);
                 }
             }
+            this.StockageShape.clear();
 
 
 
@@ -371,7 +373,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
 
     public String ColorCheck(String color){
         String temp;
-        if(color.equals("marooon")){
+        if(color.equals("maroon")){
             temp="#800000";
             return temp;
         }

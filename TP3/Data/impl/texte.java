@@ -30,7 +30,7 @@ public class texte extends Shape {
     }
 
     @Override
-    public void setDraw(Graphics g) {
+    public void setDraw(Graphics2D g) {
         g.setColor(this.couleur);
         g.drawString(texte,this.X,this.Y);
     }

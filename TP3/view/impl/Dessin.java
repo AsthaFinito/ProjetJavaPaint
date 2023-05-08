@@ -54,7 +54,7 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
         //g.fillRect(50, 50, 100, 100);
         for(Shape S : Shapes){
             //System.out.println("Dans le for de dessin ");
-            S.setDraw(g);
+            S.setDraw((Graphics2D) g);
         }
 
     }

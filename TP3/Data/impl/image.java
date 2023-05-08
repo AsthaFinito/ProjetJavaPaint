@@ -31,7 +31,7 @@ public class image extends Shape {
     }
 
     @Override
-    public void setDraw(Graphics g) {
+    public void setDraw(Graphics2D g) {
         g.drawImage(this.image,X,Y,null);
     }
 }

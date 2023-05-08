@@ -32,7 +32,7 @@ public class polygon extends Shape {
     }
 
     @Override
-    public void setDraw(Graphics g) {
+    public void setDraw(Graphics2D g) {
         System.out.println("Dessin du polygone");
 
         String[] pointValues = this.ListePoint.split("\\s+|,");
@@ -47,5 +47,8 @@ public class polygon extends Shape {
 
         g.setColor(this.FillColor);
         g.fillPolygon(xPoints, yPoints, numPoints);
+        g.setStroke(new BasicStroke(this.widthStroke));
+        g.setColor(this.StrokeColor);
+        g.drawPolygon(xPoints, yPoints, numPoints);
     }
 }

@@ -26,7 +26,7 @@ public class carre extends Shape {
     }
 
     @Override
-    public void setDraw(Graphics g) {
+    public void setDraw(Graphics2D g) {
 
         g.setColor(this.couleur);
         g.fillRect(this.X,this.Y,this.cote,this.cote);

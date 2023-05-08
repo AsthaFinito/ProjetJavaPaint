@@ -36,7 +36,7 @@ public class rectangle extends Shape {
 
 
     }
-    public rectangle(Color couleur,int px,int py,Color StrokeColor) {
+    public rectangle(Color couleur,int px,int py,Color StrokeColor,int stroke_width) {
 
 
         super(couleur,new Dot(px,py));
@@ -46,6 +46,7 @@ public class rectangle extends Shape {
         this.Y=py;
         this.couleur=couleur;
         this.stroke_color=StrokeColor;
+        this.stroke_width=stroke_width;
 
 
     }
@@ -55,12 +56,14 @@ public class rectangle extends Shape {
         this.largeur=largeurBB;
     }
 
+
     @Override
-    public void setDraw(Graphics g) {
+    public void setDraw(Graphics2D g) {
 
         g.setColor(this.couleur);
         g.fillRect(this.X,this.Y,this.longeur,this.largeur);
         g.setColor(this.stroke_color);
+        g.setStroke(new BasicStroke(this.stroke_width));
         g.drawRect(this.X,this.Y,this.longeur,this.largeur);
 
     }

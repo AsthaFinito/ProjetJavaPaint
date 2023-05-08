@@ -31,7 +31,7 @@ public class ellipse extends Shape {
         this.petitAxe=largeurBB;
     }
     @Override
-    public void setDraw(Graphics g) {
+    public void setDraw(Graphics2D g) {
         g.setColor(this.couleur);
         g.fillOval(this.X,this.Y,this.petitAxe,this.grandAxe);
 

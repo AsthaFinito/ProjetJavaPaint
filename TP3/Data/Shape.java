@@ -39,10 +39,8 @@ public abstract class Shape {
 
     public abstract void setBoundingBox(int hauteur, int largeur);
 
-    public abstract void setDraw(Graphics g);
 
 
 
-
-
+    public abstract void setDraw(Graphics2D g);
 }
