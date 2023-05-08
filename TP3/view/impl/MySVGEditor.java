@@ -11,6 +11,8 @@ import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.plaf.synth.SynthTextAreaUI;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -22,14 +24,19 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.*;
 import java.io.*;
 import org.isen.volumeModel.TP3.Data.Shape;
+import org.fife.ui.rtextarea.*;
+import org.fife.ui.rsyntaxtextarea.*;
 
-public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
+
+public class MySVGEditor extends JFrame implements IDrawView,ActionListener, DocumentListener {
     private DrawController controller;
     private Dessin dessin;
     private JTextField zoneCode;
     private JButton BoutonRefresh;
     private JButton BoutonImport;
     private List<Shape> StockageShape = new ArrayList<>();
+    private RSyntaxTextArea NewZoneCode;
+    private RTextScrollPane scrollPane;
     public MySVGEditor(String title, DrawController controller){
         super(title);
         this.controller=controller;
@@ -55,11 +62,16 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
         JPanel panCode = new JPanel(new BorderLayout());
         panCode.setBorder(BorderFactory.createTitledBorder("Interprétation de code"));
 
-// Ajouter le composant pour interpréter le code
-// Exemple :
-        this.zoneCode = new JTextField ();
-        this.zoneCode.addActionListener(this);
-        panCode.add(new JScrollPane(zoneCode), BorderLayout.CENTER);
+
+        this.NewZoneCode = new RSyntaxTextArea(20, 60);
+        this.NewZoneCode.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_XML);
+        this.NewZoneCode.setCodeFoldingEnabled(true);
+        this.NewZoneCode.getDocument().addDocumentListener(this);
+
+        // Ajout d'un ascenseur pour la zone de texte
+        this.scrollPane = new RTextScrollPane(this.NewZoneCode);
+        panCode.add(scrollPane, BorderLayout.CENTER);
+        panCode.add(new JScrollPane(NewZoneCode), BorderLayout.CENTER);
         JPanel panCentral = new JPanel(new GridLayout(1, 2));
         panCentral.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         panCentral.add(panDessin);
@@ -89,14 +101,14 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
 
         contentPane.add(panSouth,BorderLayout.SOUTH);
 
-        String userInput = zoneCode.getText();
+        String userInput = NewZoneCode.getText();
         System.out.println("userInput ->"+userInput);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent evt) {
-        String userInput = zoneCode.getText();
+        String userInput = NewZoneCode.getText();
         System.out.println("userInput ->" + userInput);
         if(evt.getSource()==BoutonRefresh){
             System.out.println("Interpretation en cours");
@@ -380,6 +392,21 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
             System.out.println("Erreur else-if des couleurs ou couleur deja decode");
             return color;
         }
+
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
 
     }
 }
