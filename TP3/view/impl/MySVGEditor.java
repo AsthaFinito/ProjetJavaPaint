@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.synth.SynthTextAreaUI;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -37,6 +38,10 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
     private List<Shape> StockageShape = new ArrayList<>();
     private RSyntaxTextArea NewZoneCode;
     private RTextScrollPane scrollPane;
+    private JMenuItem EnregistrerMenu;
+    private JMenuItem OuvrirMenu;
+    private String DonneesEnregistrement;
+    private String DonneesOuverture;
     public MySVGEditor(String title, DrawController controller){
         super(title);
         this.controller=controller;
@@ -48,17 +53,18 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
         Container contentPane=getContentPane();
         JMenuBar m = new JMenuBar();
         JMenu FichierSauvegarde = new JMenu("Fichier");
-        JMenuItem OuvrirMenu = new JMenuItem("Ouvrir");
-        JMenuItem EnregistrerMenu = new JMenuItem("Enregistrer");
-        FichierSauvegarde.add(OuvrirMenu);
-        FichierSauvegarde.add(EnregistrerMenu);
+        this.OuvrirMenu = new JMenuItem("Ouvrir");
+        this.OuvrirMenu.addActionListener(this);
+        this.EnregistrerMenu = new JMenuItem("Enregistrer");
+        this.EnregistrerMenu.addActionListener(this);
+        FichierSauvegarde.add(this.OuvrirMenu);
+        FichierSauvegarde.add(this.EnregistrerMenu);
         m.add(FichierSauvegarde);
         setJMenuBar(m);
         JPanel panDessin = new JPanel(new BorderLayout());
         panDessin.setBorder(BorderFactory.createTitledBorder("Dessin"));
         panDessin.add(this.dessin, BorderLayout.CENTER);
 
-// Interprétation de code
         JPanel panCode = new JPanel(new BorderLayout());
         panCode.setBorder(BorderFactory.createTitledBorder("Interprétation de code"));
 
@@ -77,8 +83,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
         panCentral.add(panDessin);
         panCentral.add(panCode);
 
-// Ajouter le panneau central au contenu
-        //Container contentPane = getContentPane();
+
         contentPane.setLayout(new BorderLayout());
         contentPane.add(panCentral, BorderLayout.CENTER);
         JPanel panSouth=new JPanel();
@@ -113,20 +118,20 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
         if(evt.getSource()==BoutonRefresh){
             System.out.println("Interpretation en cours");
             try {
-                // Create a document builder factory
+
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
-                // Create a document builder
+
                 DocumentBuilder builder = factory.newDocumentBuilder();
 
-                // Parse the SVG content to create a DOM document
+
                 InputStream is = new ByteArrayInputStream(userInput.getBytes());
                 Document doc = builder.parse(is);
 
-                // Get the root element of the SVG document
+
                 Element svg = doc.getDocumentElement();
 
-                // Get a list of all the child elements of the SVG element
+
                 NodeList svgChildren = svg.getChildNodes();
 
                 // Loop through the child elements of the SVG element
@@ -283,6 +288,54 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
 
 
 
+
+        }
+        else if(evt.getSource()==EnregistrerMenu){
+            this.DonneesEnregistrement=userInput;
+            System.out.println("On enregistre le fichier");
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Enregistrer le fichier");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Fichier SVG (*.isvg)", "isvg"));
+            int userSelection = fileChooser.showSaveDialog(this);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                String filePath = fileToSave.getAbsolutePath();
+                if (!filePath.toLowerCase().endsWith(".isvg")) {
+                    fileToSave = new File(filePath + ".isvg");
+                }
+                try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileToSave))) {
+
+                    writer.write(this.DonneesEnregistrement);
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+        }
+        else if(evt.getSource()==OuvrirMenu){
+
+            System.out.println("On ouvre le fichier");
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Ouvrir le fichier");
+            fileChooser.setFileFilter(new FileNameExtensionFilter("Fichier SVG (*.isvg)", "isvg"));
+            int userSelection = fileChooser.showOpenDialog(this);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
+                    String line;
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while ((line = reader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    String fileContent = stringBuilder.toString();
+                    this.DonneesOuverture=fileContent;
+                    System.out.println(this.DonneesOuverture);
+                    reader.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
 
         }
 
