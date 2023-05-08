@@ -331,6 +331,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
                     String fileContent = stringBuilder.toString();
                     this.DonneesOuverture=fileContent;
                     System.out.println(this.DonneesOuverture);
+                    this.NewZoneCode.setText(this.DonneesOuverture);
                     reader.close();
                 } catch (IOException ex) {
                     ex.printStackTrace();
