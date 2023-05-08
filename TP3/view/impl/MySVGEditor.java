@@ -29,6 +29,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
     private JTextField zoneCode;
     private JButton BoutonRefresh;
     private JButton BoutonImport;
+    private List<Shape> StockageShape = new ArrayList<>();
     public MySVGEditor(String title, DrawController controller){
         super(title);
         this.controller=controller;
@@ -159,6 +160,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
                         rectangle test=new rectangle(CurrentColor2,x,y,CurrentColorStroke2);
                         test.setBoundingBox(width,height);
                         this.controller.AddShapeControllerSVG(test);
+                        StockageShape.add(test);
 
                     }
 
@@ -187,6 +189,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
                         cercle test=new cercle(CurrentColor2,cx,cy,r,CurrentColorStroke2);
                         test.setBoundingBox(r,r);
                         this.controller.AddShapeControllerSVG(test);
+                        StockageShape.add(test);
                     }
                     else if (svgChild.getNodeType() == Node.ELEMENT_NODE && svgChild.getNodeName().equals("text")) {
                         // code pour le texte
@@ -207,6 +210,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
                         texte test=new texte(textValueString,CurrentColor2,x,y);
 
                         this.controller.AddShapeControllerSVG(test);
+                        StockageShape.add(test);
 
                     }
                     else if (svgChild.getNodeType() == Node.ELEMENT_NODE && svgChild.getNodeName().equals("isen_magic")) {
@@ -243,6 +247,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
 
                         polygon test=new polygon(CurrentColor2,CurrentColorStroke2,CurrentTailleStroke,points);
                         this.controller.AddShapeControllerSVG(test);
+                        StockageShape.add(test);
                         // System.out.println("Fin de chargement");
 
                     }
@@ -256,6 +261,17 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener {
         }
         else if(evt.getSource()==BoutonImport){
             System.out.println("Affichage dans le paint ");
+            for (Shape shape : StockageShape) {
+                if (shape != null) {
+                    // Traitement de chaque forme
+                    this.controller.AddShapeController(shape);
+                }
+            }
+
+
+
+
+
         }
 
     }
