@@ -27,6 +27,7 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
     private int XSouris;
     private int YSouris;
     private DrawController controller;
+    private Shape currentShape;
 
 
 
@@ -38,6 +39,7 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
         addMouseMotionListener(this);
         this.Shapes=new ArrayList<>();
         this.controller=c;
+        this.currentShape=null;
 
     }
 
@@ -179,7 +181,7 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        /*
+
         System.out.println("Detection lacher de souris");
         int SourisX_Lache=e.getX();
         int SourisY_Lache=e.getY();
@@ -250,7 +252,6 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
 
 
         }
-        */
     }
 
     @Override

@@ -37,11 +37,28 @@ public class DrawController{
 
     }
     public void DisplayViewShapeManager(){
-        DrawController_SLM.DisplayShapeManager();
+        int i = 0;
+        System.out.println("Dans le DisplayViewShapeManager view");
+        for(IDrawView v : DrawController_View){
+            if(i == 1){
+                v.display();
+                break;
+            }
+            i++;
+        }
 
     }
     public void CloseViewShapeManager(){
 
+        int i = 0;
+        System.out.println("Dans le close view");
+        for(IDrawView v : DrawController_View){
+            if(i == 1){
+                v.close(); // Ferme la deuxième vue
+                break; // Sort de la boucle après avoir fermé la deuxième vue
+            }
+            i++; // Incrémente le compteur à chaque tour de boucle
+        }
     }
 
     public void DisplayView(){
@@ -89,5 +106,9 @@ public class DrawController{
 
     public void AddShapeControllerSVG(Shape test) {
         DrawController_SLM.AddShapeSVG(test);
+    }
+
+    public void RemoveAllShapeControllerSVG() {
+        DrawController_SLM.RemovesAllShapesSVG();
     }
 }

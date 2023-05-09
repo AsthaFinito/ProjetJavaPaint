@@ -35,6 +35,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
     private JTextField zoneCode;
     private JButton BoutonRefresh;
     private JButton BoutonImport;
+    private JButton BoutonClear;
     private List<Shape> StockageShape = new ArrayList<>();
     private RSyntaxTextArea NewZoneCode;
     private RTextScrollPane scrollPane;
@@ -89,6 +90,7 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
         JPanel panSouth=new JPanel();
         JPanel PanelRefresh=new JPanel();
         JPanel PanelImport=new JPanel();
+        JPanel PanelClear=new JPanel();
         panSouth.setLayout(new GridLayout(1,2));
         panSouth.setPreferredSize(new Dimension(1280,125));
         this.BoutonRefresh=new JButton("Refresh");
@@ -99,9 +101,17 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
         this.BoutonImport.addActionListener(this);
         this.BoutonImport.setBackground(Color.green);
         PanelImport.add(this.BoutonImport);
+
+        this.BoutonClear=new JButton("Clear");
+        this.BoutonClear.addActionListener(this);
+        this.BoutonClear.setBackground(Color.blue);
+        PanelClear.add(this.BoutonClear);
+
         panSouth.add(this.BoutonRefresh);
         panSouth.setLayout(new FlowLayout());
         panSouth.add(PanelImport);
+        panSouth.setLayout(new FlowLayout());
+        panSouth.add(PanelClear);
 
 
         contentPane.add(panSouth,BorderLayout.SOUTH);
@@ -341,6 +351,19 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
             }
 
         }
+        else if(evt.getSource()==BoutonClear){
+            System.out.println("Effacement de l'apercu");
+            this.StockageShape.clear();
+            this.controller.RemoveAllShapeControllerSVG();
+            this.NewZoneCode.setText("");
+
+
+
+
+
+
+
+        }
 
     }
 
@@ -361,6 +384,14 @@ public class MySVGEditor extends JFrame implements IDrawView,ActionListener, Doc
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("PropertyChangeEvent -> "+evt);
         if(evt.getPropertyName().equals("AddShapesSVG")){
+            Object data = evt.getNewValue();
+            ArrayList<org.isen.volumeModel.TP3.Data.Shape> shapes = (ArrayList<org.isen.volumeModel.TP3.Data.Shape>) data;
+            if(data instanceof List){
+                dessin.setShape(shapes);
+                dessin.repaint();
+            }
+        }
+        else if(evt.getPropertyName().equals("RemoveAllShapesSVG")){
             Object data = evt.getNewValue();
             ArrayList<org.isen.volumeModel.TP3.Data.Shape> shapes = (ArrayList<org.isen.volumeModel.TP3.Data.Shape>) data;
             if(data instanceof List){

@@ -75,5 +75,10 @@ public class ShapeListModel {
         this.ListeShape.add(test);
         TestPCS.firePropertyChange("AddShapesSVG",null,ListeShape);
     }
+
+    public void RemovesAllShapesSVG() {
+        this.ListeShape.clear();
+        TestPCS.firePropertyChange("RemoveAllShapesSVG",null,ListeShape);
+    }
 }
 

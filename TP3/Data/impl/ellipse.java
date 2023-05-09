@@ -24,6 +24,7 @@ public class ellipse extends Shape {
         super(couleur,new Dot(px,py));
         this.X=px;
         this.Y=py;
+        this.couleur=couleur;
     }
     @Override
     public void setBoundingBox(int hauteurBB, int largeurBB) {

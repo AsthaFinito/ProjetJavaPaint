@@ -170,11 +170,11 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
 
             System.out.println("Valeur du i dans le shapeManager :"+test_shapeManager);
             if(test_shapeManager%2==0){
-                controller.DisplayView();
+                controller.DisplayViewShapeManager();
                 test_shapeManager=test_shapeManager+1;
             }
             else{
-                controller.CloseView();
+                controller.CloseViewShapeManager();
                 test_shapeManager=test_shapeManager+1;
             }
 
