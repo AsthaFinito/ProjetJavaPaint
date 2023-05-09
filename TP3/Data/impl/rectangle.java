@@ -33,6 +33,7 @@ public class rectangle extends Shape {
         this.Y=py;
         this.couleur=couleur;
         this.stroke_color=couleur;
+        this.stroke_width=1;
 
 
     }
@@ -54,6 +55,7 @@ public class rectangle extends Shape {
     public void setBoundingBox(int hauteurBB, int largeurBB) {
         this.longeur=hauteurBB;
         this.largeur=largeurBB;
+        System.out.println("Fin BB -> "+this.longeur);
     }
 
 
@@ -61,6 +63,9 @@ public class rectangle extends Shape {
     public void setDraw(Graphics2D g) {
 
         g.setColor(this.couleur);
+        //System.out.println("Debut dessin BB -> "+this.longeur);
+        //System.out.println("Affichage X dessin-> "+this.X);
+        //System.out.println("Affichage Y dessin -> "+this.Y);
         g.fillRect(this.X,this.Y,this.longeur,this.largeur);
         g.setColor(this.stroke_color);
         g.setStroke(new BasicStroke(this.stroke_width));
