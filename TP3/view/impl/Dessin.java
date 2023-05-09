@@ -101,26 +101,26 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
         int deplacementX;
         int deplacementY;
 
-        if(SourisY_Lache>YSouris){
-            deplacementY=SourisY_Lache-YSouris;
-        }
-        else{
-            deplacementY=YSouris-SourisY_Lache;
-
+        if (SourisY_Lache > YSouris) {
+            deplacementY = SourisY_Lache - YSouris;
+        } else {
+            deplacementY = -(YSouris - SourisY_Lache);
         }
 
-        if(SourisX_Lache>XSouris){
-            deplacementX=SourisX_Lache-XSouris;
+        if (SourisX_Lache > XSouris) {
+            deplacementX = SourisX_Lache - XSouris;
+        } else {
+            deplacementX = -(XSouris - SourisX_Lache);
         }
-        else{
-            deplacementX=XSouris-SourisX_Lache;
+        if(this.currentShape!=null){
+            this.controller.RemoveShapeController(this.currentShape);
         }
        // System.out.println("Valeur du deplacement : En X et En Y "+deplacementX+" "+deplacementY);
         if(Current_ShapeName.equals("Rectangle")){
 
-            rectangle test=new rectangle(CurrentColor,XSouris,YSouris);
-            test.setBoundingBox(deplacementX,deplacementY);
-            this.controller.AddShapeController(test);
+            this.currentShape=new rectangle(CurrentColor,XSouris,YSouris);
+            this.currentShape.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(this.currentShape);
            // Shapes.add(test);
            // repaint();
             System.out.println("Fin d'ajout normalement -> "+Shapes.size());
@@ -130,9 +130,9 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
             System.out.println("Dans le carré?");
           //  Dot coo= new Dot(XSouris,YSouris);
 
-            carre test=new carre(CurrentColor,XSouris,YSouris);
-            test.setBoundingBox(deplacementX,deplacementY);
-            this.controller.AddShapeController(test);
+            this.currentShape=new carre(CurrentColor,XSouris,YSouris);
+            this.currentShape.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(this.currentShape);
             //Shapes.add(test);
             //repaint();
             //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
@@ -143,9 +143,9 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
             System.out.println("Dans le cercle?");
             //  Dot coo= new Dot(XSouris,YSouris);
 
-            cercle test=new cercle(CurrentColor,XSouris,YSouris,XSouris-deplacementX);
-            test.setBoundingBox(deplacementX,deplacementY);
-            this.controller.AddShapeController(test);
+            this.currentShape=new cercle(CurrentColor,XSouris,YSouris,XSouris-deplacementX);
+            this.currentShape.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(this.currentShape);
             //Shapes.add(test);
             //repaint();
             //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
@@ -156,9 +156,9 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
             System.out.println("Dans l'elipse?");
             //  Dot coo= new Dot(XSouris,YSouris);
 
-            ellipse test=new ellipse(CurrentColor, XSouris,YSouris);
-            test.setBoundingBox(deplacementX,deplacementY);
-            this.controller.AddShapeController(test);
+            this.currentShape=new ellipse(CurrentColor, XSouris,YSouris);
+            this.currentShape.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(this.currentShape);
             //Shapes.add(test);
             //repaint();
             //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
@@ -188,26 +188,26 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
         int deplacementX;
         int deplacementY;
 
-        if(SourisY_Lache>YSouris){
-            deplacementY=SourisY_Lache-YSouris;
-        }
-        else{
-            deplacementY=YSouris-SourisY_Lache;
-
+        if (SourisY_Lache > YSouris) {
+            deplacementY = SourisY_Lache - YSouris;
+        } else {
+            deplacementY = -(YSouris - SourisY_Lache);
         }
 
-        if(SourisX_Lache>XSouris){
-            deplacementX=SourisX_Lache-XSouris;
+        if (SourisX_Lache > XSouris) {
+            deplacementX = SourisX_Lache - XSouris;
+        } else {
+            deplacementX = -(XSouris - SourisX_Lache);
         }
-        else{
-            deplacementX=XSouris-SourisX_Lache;
+        if(this.currentShape!=null){
+            this.controller.RemoveShapeController(this.currentShape);
         }
         // System.out.println("Valeur du deplacement : En X et En Y "+deplacementX+" "+deplacementY);
         if(Current_ShapeName.equals("Rectangle")){
 
-            rectangle test=new rectangle(CurrentColor,XSouris,YSouris);
-            test.setBoundingBox(deplacementX,deplacementY);
-            this.controller.AddShapeController(test);
+            this.currentShape=new rectangle(CurrentColor,XSouris,YSouris);
+            this.currentShape.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(this.currentShape);
             // Shapes.add(test);
             // repaint();
             System.out.println("Fin d'ajout normalement -> "+Shapes.size());
@@ -217,9 +217,9 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
             System.out.println("Dans le carré?");
             //  Dot coo= new Dot(XSouris,YSouris);
 
-            carre test=new carre(CurrentColor,XSouris,YSouris);
-            test.setBoundingBox(deplacementX,deplacementY);
-            this.controller.AddShapeController(test);
+            this.currentShape=new carre(CurrentColor,XSouris,YSouris);
+            this.currentShape.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(this.currentShape);
             //Shapes.add(test);
             //repaint();
             //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
@@ -230,9 +230,9 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
             System.out.println("Dans le cercle?");
             //  Dot coo= new Dot(XSouris,YSouris);
 
-            cercle test=new cercle(CurrentColor,XSouris,YSouris,XSouris-deplacementX);
-            test.setBoundingBox(deplacementX,deplacementY);
-            this.controller.AddShapeController(test);
+            this.currentShape=new cercle(CurrentColor,XSouris,YSouris,XSouris-deplacementX);
+            this.currentShape.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(this.currentShape);
             //Shapes.add(test);
             //repaint();
             //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
@@ -243,9 +243,9 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
             System.out.println("Dans l'elipse?");
             //  Dot coo= new Dot(XSouris,YSouris);
 
-            ellipse test=new ellipse(CurrentColor, XSouris,YSouris);
-            test.setBoundingBox(deplacementX,deplacementY);
-            this.controller.AddShapeController(test);
+            this.currentShape=new ellipse(CurrentColor, XSouris,YSouris);
+            this.currentShape.setBoundingBox(deplacementX,deplacementY);
+            this.controller.AddShapeController(this.currentShape);
             //Shapes.add(test);
             //repaint();
             //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
