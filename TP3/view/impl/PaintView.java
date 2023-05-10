@@ -160,6 +160,12 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
             dessin.ChangeColor(Color.PINK);
             dessin.ReturnColor();
         }
+        else if(cmd.equals("Gray")){
+
+            System.out.println("Bouton presse = +"+cmd);
+            dessin.ChangeColor(Color.GRAY);
+            dessin.ReturnColor();
+        }
         else if(cmd.equals("Nouveau")){
             System.out.println("Bouton presse = +"+cmd);
 
@@ -267,6 +273,12 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
         PanelCouleur.setPreferredSize(new Dimension(540,100));
         PanelForme.setLayout(new GridLayout(2,2));
         PanelForme.setPreferredSize(new Dimension(320,100));
+
+        JButton BoutonGris=new JButton("Gray");
+        BoutonGris.setBackground(Color.GRAY);
+        BoutonGris.addActionListener(this);
+        PanelCouleur.add(BoutonGris);
+
         JButton BoutonBlack=new JButton("Black");
         BoutonBlack.setBackground(Color.black);
         BoutonBlack.addActionListener(this);

@@ -3,7 +3,7 @@ package org.isen.volumeModel.TP3;
 import org.isen.volumeModel.TP3.controller.DrawController;
 import org.isen.volumeModel.TP3.model.ShapeListModel;
 import org.isen.volumeModel.TP3.view.impl.MySVGEditor;
-import org.isen.volumeModel.TP3.view.impl.MyShapeManager;
+import org.isen.volumeModel .TP3.view.impl.MyShapeManager;
 import org.isen.volumeModel.TP3.view.impl.PaintView;
 
 public class TestPaintView {

@@ -10,6 +10,7 @@ public class carre extends Shape {
     private Color couleur;
     private int X;
     private int Y;
+    private int opacite;
 
     public carre(Color couleur, int px,int py) {
 
@@ -17,6 +18,15 @@ public class carre extends Shape {
         this.X=px;
         this.Y=py;
         this.couleur=couleur;
+        this.opacite=100;
+    }
+    public carre(Color couleur, int px,int py,int opacite) {
+
+        super(couleur, new Dot(px,py));
+        this.X=px;
+        this.Y=py;
+        this.couleur=couleur;
+        this.opacite=opacite;
     }
 
     @Override
@@ -27,9 +37,16 @@ public class carre extends Shape {
 
     @Override
     public void setDraw(Graphics2D g) {
+        if(this.opacite==100){
+            g.setColor(this.couleur);
+            g.fillRect(this.X,this.Y,this.cote,this.cote);
+        }
+        else{
+            g.setColor(this.couleur);
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); // réglage de l'opacité à 50%
+            g.fillRect(this.X,this.Y,this.cote,this.cote);
+        }
 
-        g.setColor(this.couleur);
-        g.fillRect(this.X,this.Y,this.cote,this.cote);
 
     }
 }

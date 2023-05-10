@@ -8,6 +8,7 @@ import java.awt.*;
 public class rectangle extends Shape {
 
 
+    private  int opacite;
     private Color couleur;
 
     private int X;
@@ -34,6 +35,22 @@ public class rectangle extends Shape {
         this.couleur=couleur;
         this.stroke_color=couleur;
         this.stroke_width=1;
+        this.opacite=100;
+
+
+    }
+    public rectangle(Color couleur,int px,int py,int opacite) {
+
+
+        super(couleur,new Dot(px,py));
+        this.longeur=0;
+        this.largeur=0;
+        this.X=px;
+        this.Y=py;
+        this.couleur=couleur;
+        this.stroke_color=couleur;
+        this.stroke_width=1;
+        this.opacite=opacite;
 
 
     }
@@ -48,6 +65,7 @@ public class rectangle extends Shape {
         this.couleur=couleur;
         this.stroke_color=StrokeColor;
         this.stroke_width=stroke_width;
+        this.opacite=100;
 
 
     }
@@ -61,15 +79,23 @@ public class rectangle extends Shape {
 
     @Override
     public void setDraw(Graphics2D g) {
+        if(opacite==100){
+            g.setColor(this.couleur);
+            g.fillRect(this.X,this.Y,this.longeur,this.largeur);
+            g.setColor(this.stroke_color);
+            g.setStroke(new BasicStroke(this.stroke_width));
+            g.drawRect(this.X,this.Y,this.longeur,this.largeur);
+        }
+        else{
+            System.out.println("Debug SVG");
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); // réglage de l'opacité à 50%
+            g.setColor(this.couleur);
+            g.fillRect(this.X,this.Y,this.longeur,this.largeur);
+            g.setColor(this.stroke_color);
+            g.setStroke(new BasicStroke(this.stroke_width));
+            g.drawRect(this.X,this.Y,this.longeur,this.largeur);
+        }
 
-        g.setColor(this.couleur);
-        //System.out.println("Debut dessin BB -> "+this.longeur);
-        //System.out.println("Affichage X dessin-> "+this.X);
-        //System.out.println("Affichage Y dessin -> "+this.Y);
-        g.fillRect(this.X,this.Y,this.longeur,this.largeur);
-        g.setColor(this.stroke_color);
-        g.setStroke(new BasicStroke(this.stroke_width));
-        g.drawRect(this.X,this.Y,this.longeur,this.largeur);
 
     }
 }

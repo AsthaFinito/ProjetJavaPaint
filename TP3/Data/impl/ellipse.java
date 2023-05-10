@@ -8,6 +8,7 @@ import java.awt.*;
 
 public class ellipse extends Shape {
 
+    private  int opacite;
     private int grandAxe;
     private int petitAxe;
     private int X;
@@ -25,6 +26,17 @@ public class ellipse extends Shape {
         this.X=px;
         this.Y=py;
         this.couleur=couleur;
+        this.opacite=100;
+    }
+    public ellipse(Color couleur,int px,int py,int opacite) {
+
+
+
+        super(couleur,new Dot(px,py));
+        this.X=px;
+        this.Y=py;
+        this.couleur=couleur;
+        this.opacite=opacite;
     }
     @Override
     public void setBoundingBox(int hauteurBB, int largeurBB) {
@@ -33,8 +45,16 @@ public class ellipse extends Shape {
     }
     @Override
     public void setDraw(Graphics2D g) {
-        g.setColor(this.couleur);
-        g.fillOval(this.X,this.Y,this.petitAxe,this.grandAxe);
+        if(opacite==100){
+            g.setColor(this.couleur);
+            g.fillOval(this.X,this.Y,this.petitAxe,this.grandAxe);
+        }
+        else{
+            g.setColor(this.couleur);
+            g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); // réglage de l'opacité à 50%
+            g.fillOval(this.X,this.Y,this.petitAxe,this.grandAxe);
+        }
+
 
     }
 }
