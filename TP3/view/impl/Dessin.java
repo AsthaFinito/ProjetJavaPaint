@@ -29,7 +29,10 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
     private int ClickCount;
     private int[] xPoints = new int[3];
     private int[] yPoints = new int[3];
-
+    private Shape selectedShape;
+    private boolean isDragging;
+    private int mouseXOffset;
+    private int mouseYOffset;
 
 
     public Dessin(DrawController c) {
@@ -42,6 +45,7 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
         this.controller=c;
         this.currentShape=null;
         this.ClickCount=0;
+        this.isDragging=false;
 
     }
 
@@ -104,11 +108,28 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
                 repaint();
             }
         }
+        else if(Current_ShapeName.equals("Déplacement")){
+            int mouseX = e.getX();
+            int mouseY = e.getY();
+            System.out.println("Mode déplacement de figure");
+            for (Shape shape : Shapes) {
+                if (shape.isOnShape(mouseX,mouseY)) {
+                    // La souris est sur cette forme
+                    System.out.println("Mode déplacement en True");
+                    this.selectedShape = shape;
+                    this.isDragging=true;
+                    // Stockez les coordonnées de la souris par rapport à la forme pour déplacer la forme
+                    this.mouseXOffset = mouseX - selectedShape.getX();
+                    this.mouseYOffset = mouseY - selectedShape.getY();
+
+                }
+            }
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        this.currentShape=null;
         //System.out.println("Detection lacher de souris");
         this.XSouris=e.getX();
         this.YSouris=e.getY();
@@ -187,6 +208,7 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
 
             this.currentShape=new rectangle(CurrentColor,XSouris,YSouris,100);
             this.currentShape.setBoundingBox(deplacementX,deplacementY);
+
             this.controller.AddShapeController(this.currentShape);
 
 
@@ -230,7 +252,14 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
 
 
         }
-
+        else if(this.isDragging==true){
+            //System.out.println("Déplacement de la figure?");
+            this.selectedShape.setXY(SourisX_Lache - this.mouseXOffset,SourisY_Lache - this.mouseYOffset);
+            //this.controller.RemoveShapeController(this.selectedShape);
+            //this.controller.AddShapeController(this.selectedShape);
+            repaint();
+        }
+        this.isDragging=false;
 
     }
 
@@ -247,13 +276,12 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
     @Override
     public void mouseDragged(MouseEvent e) {
 
-        System.out.println("Detection lacher de souris");
+
         int SourisX_Lache=e.getX();
         int SourisY_Lache=e.getY();
             int deplacementX=SourisX_Lache-this.XSouris;
         int deplacementY=SourisY_Lache-this.YSouris;
-        System.out.println("deplacementX -> "+deplacementX);
-        System.out.println("deplacementY -> "+deplacementY);
+
         if(this.currentShape!=null){
             this.controller.RemoveShapeController(this.currentShape);
         }
@@ -306,6 +334,16 @@ public class Dessin extends JPanel implements MouseListener, MouseMotionListener
             //System.out.println("Fin d'ajout normalement -> "+Shapes.size());
 
 
+        }
+        else if(this.isDragging==true){
+            //System.out.println("Déplacement de la figure?");
+
+            //this.controller.RemoveShapeController(this.selectedShape);
+            //this.controller.AddShapeController(this.selectedShape);
+            int index = Shapes.indexOf(this.selectedShape);
+            Shapes.set(index, this.selectedShape);
+            this.selectedShape.setXY(SourisX_Lache - this.mouseXOffset,SourisY_Lache - this.mouseYOffset);
+            repaint();
         }
     }
 

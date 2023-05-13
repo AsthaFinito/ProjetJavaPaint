@@ -55,6 +55,11 @@ public class cercle extends Shape {
 
     @Override
     public void setDraw(Graphics2D g) {
+        if(this.rayon<0){
+            this.X=this.X+this.rayon;
+            this.Y=this.Y+this.rayon;
+            this.rayon=-this.rayon;
+        }
         if(opacite==100){
             g.setColor(this.couleur);
             g.fillOval(this.X,this.Y,this.rayon,this.rayon);

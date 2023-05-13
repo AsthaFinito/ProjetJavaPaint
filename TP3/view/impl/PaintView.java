@@ -88,6 +88,12 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
             dessin.ChangeStringShape("Rectangle");
             dessin.ReturnShapeName();
         }
+        else if(cmd.equals("Déplacement")){
+
+            System.out.println("Bouton presse = +"+cmd);
+            dessin.ChangeStringShape("Déplacement");
+            dessin.ReturnShapeName();
+        }
         else if(cmd.equals("Triangle")){
 
             System.out.println("Bouton presse = +"+cmd);
@@ -342,6 +348,11 @@ public class PaintView extends JFrame implements IDrawView,ActionListener  {
         JButton BoutonRectangle=new JButton("Rectangle");
         BoutonRectangle.addActionListener(this);
         PanelForme.add(BoutonRectangle);
+
+        JButton BouttonDeplacement=new JButton("Déplacement");
+        BouttonDeplacement.addActionListener(this);
+        PanelForme.add(BouttonDeplacement);
+
         pan1.setLayout(new FlowLayout());
         pan1.add(PanelForme);
 

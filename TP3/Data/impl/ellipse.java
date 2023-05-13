@@ -45,6 +45,14 @@ public class ellipse extends Shape {
     }
     @Override
     public void setDraw(Graphics2D g) {
+        if( this.grandAxe<0){
+            this.X=this.X+ this.grandAxe;
+            this.grandAxe=- this.grandAxe;
+        }
+        if(this.petitAxe<0){
+            this.Y=this.Y+this.petitAxe;
+            this.petitAxe=-this.petitAxe;
+        }
         if(opacite==100){
             g.setColor(this.couleur);
             g.fillOval(this.X,this.Y,this.petitAxe,this.grandAxe);

@@ -71,14 +71,25 @@ public class rectangle extends Shape {
     }
     @Override
     public void setBoundingBox(int hauteurBB, int largeurBB) {
+
         this.longeur=hauteurBB;
         this.largeur=largeurBB;
-        System.out.println("Fin BB -> "+this.longeur);
+
+        super.setHeight(hauteurBB);
+        super.setWidth(largeurBB);
     }
 
 
     @Override
     public void setDraw(Graphics2D g) {
+        if(this.longeur<0){
+            this.X=this.X+this.longeur;
+            this.longeur=-this.longeur;
+        }
+        if(this.largeur<0){
+            this.Y=this.Y+this.largeur;
+            this.largeur=-this.largeur;
+        }
         if(opacite==100){
             g.setColor(this.couleur);
             g.fillRect(this.X,this.Y,this.longeur,this.largeur);
@@ -87,7 +98,8 @@ public class rectangle extends Shape {
             g.drawRect(this.X,this.Y,this.longeur,this.largeur);
         }
         else{
-            System.out.println("Debug SVG");
+            //System.out.println("Debug SVG");
+
             g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f)); // réglage de l'opacité à 50%
             g.setColor(this.couleur);
             g.fillRect(this.X,this.Y,this.longeur,this.largeur);

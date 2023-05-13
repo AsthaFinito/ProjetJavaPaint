@@ -37,6 +37,12 @@ public class carre extends Shape {
 
     @Override
     public void setDraw(Graphics2D g) {
+        if(this.cote<0){
+            this.X=this.X+this.cote;
+            this.Y=this.Y+this.cote;
+            this.cote=-this.cote;
+        }
+
         if(this.opacite==100){
             g.setColor(this.couleur);
             g.fillRect(this.X,this.Y,this.cote,this.cote);
